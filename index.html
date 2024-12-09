@@ -41,49 +41,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paiement PayPal</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://www.paypal.com/sdk/js?client-id=sb-0yar934743198@pigeonarnaque.github.io"></script> <!-- Remplacez YOUR_CLIENT_ID par votre ID client -->
 </head>
 <body>
     <div class="container">
-        <h1>Document Premium</h1>
-        <p>Payez 10€ pour télécharger la méthod.</p>
+        <h1>Méthode Premium</h1>
+        <p>Payez 10€ pour télécharger la méthode</p>
         <div id="paypal-button-container"></div>
     </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAATWCE8xRPeHjHGLRD8jruIKU02RMVtJ-5PdkwIfe7aweDv3RDL6jC7D3DRerM8fF12iEc-u0XPiLpfTw&components=hosted-buttons&disable-funding=venmo&currency=EUR"></script>
+    <div id="paypal-container-ERZ23PTE6GL3L"></div>
     <script>
-        const script = document.createElement('script');
-        script.src = "https://www.paypal.com/sdk/js?client-id=sb-0yar934743198@pigeonarnaque.github.io";
-        document.head.appendChild(script);
-        script.onload = () => {
-            console.log("SDK PayPal chargé avec succès.");
-        paypal.Buttons({
-            // Créer une commande
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '10.00' // Prix en euros
-                        }
-                    }]
-                });
-            },
-
-            // Approuver le paiement
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert(`Merci pour votre paiement, ${details.payer.name.given_name} !`);
-                    
-                    // Téléchargez le PDF
-                    window.location.href = 'document.pdf'; // Assurez-vous que le document PDF est dans le même dossier
-                });
-            },
-
-            // En cas d'erreur
-            onError: function(err) {
-                console.error(err);
-                alert("Une erreur est survenue lors du paiement. Veuillez réessayer.");
-            }
-        }).render('#paypal-button-container');
-
+        paypal.HostedButtons({
+        hostedButtonId: "ERZ23PTE6GL3L",
+        }).render("#paypal-container-ERZ23PTE6GL3L")
     </script>
 </body>
 </html>
